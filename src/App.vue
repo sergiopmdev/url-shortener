@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+import AppHeader from "./components/AppHeader.vue";
+</script>
 
-<template></template>
+<template>
+  <AppHeader />
+</template>
 
 <style scoped></style>

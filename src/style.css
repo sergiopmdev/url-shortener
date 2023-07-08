@@ -7,8 +7,20 @@
   --color-red-pantone: #ef233c;
 }
 
+/* Dimensions */
+
+:root {
+  --dimension-max-width: 1280px;
+}
+
 /* Global styles */
 
 body {
+  margin: 0;
   background-color: var(--color-space-cadet);
+}
+
+h1 {
+  margin: 0;
+  font-family: "Ubuntu", sans-serif;
 }
