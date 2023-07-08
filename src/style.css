@@ -1,0 +1,14 @@
+/* Colors */
+
+:root {
+  --color-space-cadet: #2b2d42;
+  --color-cool-gray: #8d99ae;
+  --color-anti-flash-white: #edf2f4;
+  --color-red-pantone: #ef233c;
+}
+
+/* Global styles */
+
+body {
+  background-color: var(--color-space-cadet);
+}
