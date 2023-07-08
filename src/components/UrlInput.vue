@@ -1,12 +1,13 @@
 <script setup>
 import { ref } from "vue";
-import shortenUrl from "../services/shortenUrl/shortenUrl";
+import Shortener from "../services/shortenUrl/Shortener";
 
 const url = ref(new String());
 
 function onSubmit(event) {
   event.preventDefault();
-  shortenUrl(url);
+  const shortener = new Shortener(url);
+  shortener.shortenUrl();
 }
 </script>
 
