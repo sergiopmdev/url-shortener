@@ -1,0 +1,7 @@
+{
+  "name": "url-shortener",
+  "workspaceFolder": "/app",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+  "image": "node:18.16-buster",
+  "runArgs": ["--name", "url-shortener"]
+}
