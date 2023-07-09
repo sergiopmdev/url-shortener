@@ -1,3 +1,4 @@
+import { useShortener } from "../../stores/useShortener";
 import InvalidUrlError from "./exceptions";
 
 class Shortener {
@@ -21,14 +22,18 @@ class Shortener {
   }
 
   shortenUrl() {
+    const shortenerStore = useShortener();
     const request = this.#generateRequest();
+
+    shortenerStore.setShortening(true);
 
     fetch("https://api-ssl.bitly.com/v4/shorten", request)
       .then((response) => {
         const status = response.status;
+        shortenerStore.setResponseStatus(status);
         if ([200, 201].includes(status)) {
           response.json().then((data) => {
-            console.log(data.link);
+            shortenerStore.setShortenedLink(data.link);
           });
         } else if (status === 400) {
           throw new InvalidUrlError("Invalid URL");
@@ -38,6 +43,9 @@ class Shortener {
       })
       .catch((error) => {
         Promise.reject(error);
+      })
+      .finally(() => {
+        shortenerStore.setShortening(false);
       });
   }
 }
