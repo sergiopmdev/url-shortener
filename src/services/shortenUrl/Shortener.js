@@ -26,6 +26,8 @@ class Shortener {
     const request = this.#generateRequest();
 
     shortenerStore.setShortening(true);
+    shortenerStore.setResponseStatus(undefined);
+    shortenerStore.setShortenedLink(undefined);
 
     fetch("https://api-ssl.bitly.com/v4/shorten", request)
       .then((response) => {

@@ -15,7 +15,12 @@ function onSubmit(event) {
 
 <template>
   <form @submit="onSubmit" class="url-form-container">
-    <input v-model="url" class="url-input" placeholder="Enter an URL..." />
+    <div class="url-input-container">
+      <input v-model="url" class="url-input" placeholder="Enter an URL..." />
+      <span class="url-error" v-if="shortenerStore.responseStatus === 400"
+        >Invalid URL</span
+      >
+    </div>
     <button
       v-bind:class="
         !shortenerStore.shortening ? 'url-submit' : 'url-submit submit-disabled'
@@ -43,12 +48,18 @@ function onSubmit(event) {
   gap: 0.5rem;
   max-width: var(--dimension-max-width);
   height: 2.2rem;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 0 2rem;
 }
 
-.url-input {
+.url-input-container {
+  position: relative;
   width: 80%;
+}
+
+.url-input {
+  width: 100%;
+  height: 100%;
   padding: 0rem;
   border: none;
   text-indent: 0.7rem;
@@ -73,7 +84,7 @@ function onSubmit(event) {
   background-color: var(--color-red-pantone-dark);
 }
 
-.url-input,
+.url-input-container,
 .url-submit {
   height: 100%;
 }
@@ -87,13 +98,25 @@ function onSubmit(event) {
   cursor: not-allowed;
 }
 
+.url-error {
+  position: absolute;
+  top: -90%;
+  right: 0;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--color-red-pantone-light);
+  font-size: 0.8rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  color: var(--color-red-pantone);
+}
+
 @media (width <= 768px) {
   .url-form-container {
     flex-direction: column;
     height: inherit;
   }
 
-  .url-input,
+  .url-input-container,
   .url-submit {
     width: 100%;
     height: 2.2rem;
