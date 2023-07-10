@@ -6,3 +6,6 @@ dist
 
 # Own VSCode files
 .vscode/*
+
+# Environment variables
+.env
