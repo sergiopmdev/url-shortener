@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useShortener } from "../stores/useShortener";
 import Shortener from "../services/shortenUrl/Shortener";
+import copyToClipboard from "../utils/copyToClipboard";
 
 const url = ref(new String());
 const shortenerStore = useShortener();
@@ -17,8 +18,11 @@ function onSubmit(event) {
   <form @submit="onSubmit" class="url-form-container">
     <div class="url-input-container">
       <input v-model="url" class="url-input" placeholder="Enter an URL..." />
-      <span class="url-error" v-if="shortenerStore.responseStatus === 400"
+      <span class="error" v-if="shortenerStore.responseStatus === 400"
         >Invalid URL</span
+      >
+      <span class="error" v-if="shortenerStore.responseStatus === 403"
+        >Something went wrong</span
       >
     </div>
     <button
@@ -37,6 +41,20 @@ function onSubmit(event) {
       ></v-icon>
     </button>
   </form>
+  <div class="shortened-link-block" v-if="shortenerStore.shortenedLink">
+    <div class="shortened-link-container">
+      <span class="shortened-link" id="shortened-link">{{
+        shortenerStore.shortenedLink
+      }}</span>
+      <button
+        class="copy-link"
+        id="copy-link"
+        @click="copyToClipboard('shortened-link', 'copy-link')"
+      >
+        Copy
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -48,7 +66,7 @@ function onSubmit(event) {
   gap: 0.5rem;
   max-width: var(--dimension-max-width);
   height: 2.2rem;
-  margin: 2rem auto;
+  margin: 2rem auto 0rem auto;
   padding: 0 2rem;
 }
 
@@ -58,11 +76,13 @@ function onSubmit(event) {
 }
 
 .url-input {
-  width: 100%;
+  width: calc(100% - 0.5rem);
   height: 100%;
-  padding: 0rem;
+  padding: 0rem 0.5rem 0rem 0rem;
   border: none;
   text-indent: 0.7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .url-input:focus {
@@ -98,7 +118,7 @@ function onSubmit(event) {
   cursor: not-allowed;
 }
 
-.url-error {
+.error {
   position: absolute;
   top: -90%;
   right: 0;
@@ -108,6 +128,42 @@ function onSubmit(event) {
   font-family: "Open Sans", sans-serif;
   font-weight: bold;
   color: var(--color-red-pantone);
+}
+
+.shortened-link-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  margin: 1.5rem auto 0rem auto;
+  padding: 0rem 2rem;
+}
+
+.shortened-link-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: var(--dimension-max-width);
+  height: 100%;
+  background-color: var(--color-space-cadet-dark);
+}
+
+.shortened-link {
+  margin-left: 1rem;
+  font-family: "Ubuntu", sans-serif;
+  color: var(--color-anti-flash-white);
+}
+
+.copy-link {
+  height: 55%;
+  margin-right: 1rem;
+  padding: 0rem 0.5rem 0rem 0.5rem;
+  background-color: var(--color-space-cadet);
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+  color: var(--color-anti-flash-white);
 }
 
 @media (width <= 768px) {

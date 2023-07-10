@@ -6,6 +6,11 @@ class Shortener {
     this.url = url;
   }
 
+  /**
+   * Generate the object containing the API request
+   * @returns {object} The request object
+   */
+
   #generateRequest() {
     return {
       method: "POST",
@@ -20,6 +25,12 @@ class Shortener {
       },
     };
   }
+
+  /**
+   * Shorten the URL provided by the API request
+   * @throws {InvalidUrlError} Arises when the URL is invalid
+   * @throws {Error} Arises when an unexpected error occurs
+   */
 
   shortenUrl() {
     const shortenerStore = useShortener();

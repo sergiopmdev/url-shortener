@@ -2,10 +2,11 @@
 
 :root {
   --color-space-cadet: #2b2d42;
+  --color-space-cadet-dark: #212231;
   --color-cool-gray: #8d99ae;
   --color-anti-flash-white: #edf2f4;
   --color-red-pantone: #ef233c;
-  --color-red-pantone-dark: #ef233b9f;
+  --color-red-pantone-dark: #ad1c2d;
   --color-red-pantone-light: #e88994;
 }
 
